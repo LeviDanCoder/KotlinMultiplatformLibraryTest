@@ -4,6 +4,14 @@ plugins {
 
 }
 
+configurations {
+    listOf(metadataApiElements, metadataApiElements).forEach {
+
+        // Method #2
+        it.get().outgoing.artifact(tasks.sourcesJar)
+    }
+}
+
 group = "me.dan"
 version = "1.0-SNAPSHOT"
 
@@ -57,7 +65,8 @@ kotlin {
         publishing {
             publications {
                 create<MavenPublication>("mavenJava") {
-                    from(components["java"])
+                    //from(components["java"]) // <-- this is not required
+                    artifact(tasks.sourcesJar.get())
                     groupId = "github.com.LeviDanCoder"
                     artifactId = "multiplatformtest"
                     version="1.0"
@@ -65,5 +74,6 @@ kotlin {
             }
         }
     }
+
 }
 
