@@ -45,7 +45,6 @@ kotlin {
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-
     sourceSets {
         val commonMain by getting
         val commonTest by getting {
@@ -64,8 +63,7 @@ kotlin {
     afterEvaluate {
         publishing {
             publications {
-                create<MavenPublication>("mavenJava") {
-                    //from(components["java"]) // <-- this is not required
+                register<MavenPublication>("release") {
                     artifact(tasks.sourcesJar.get())
                     groupId = "github.com.LeviDanCoder"
                     artifactId = "multiplatformtest"
